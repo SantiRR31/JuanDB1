@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Usuarios</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Administrar Usuarios</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.id %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.role %></td>
+                        <td>
+                            <form action="/update-role" method="post">
+                                <input type="hidden" name="userId" value="<%= user.id %>">
+                                <select name="role">
+                                    <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>Usuario</option>
+                                    <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Administrador</option>
+                                </select>
+                                <button type="submit">Actualizar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <div class="desplegable-menu">
+            <button class="dropbtn">Regresar</button>
+            <div class="desplegable-items">
+                <a href="/">Regresar al Menú Principal</a>
+                <a href="/auth">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
